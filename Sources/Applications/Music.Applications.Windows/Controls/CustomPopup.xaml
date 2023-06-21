@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Controls.CustomPopup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             mc:Ignorable="d" Background="Transparent" MouseLeave="PopupComponent_OnMouseLeave"
+             d:DesignHeight="300" d:DesignWidth="300" x:Name="Control">
+    <UserControl.Template>
+        <ControlTemplate TargetType="{x:Type controls:CustomPopup}">
+            <Popup PlacementTarget="{Binding ElementName=Control, Path=Target}" Placement="{TemplateBinding Placement}"
+                   AllowsTransparency="True" IsOpen="{Binding ElementName=Control, Path=IsOpen}"
+                   HorizontalOffset="{Binding ElementName=Control, Path=HorizontalOffset}">
+                <Border CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{Binding ElementName=Control, Path=Padding}"
+                        Background="{Binding ElementName=Control, Path=Background}"
+                        Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                        BorderThickness="{Binding ElementName=Control, Path=BorderThickness}"
+                        BorderBrush="{DynamicResource BackgroundColor}">
+                    <ContentPresenter Content="{Binding ElementName=Control, Path=Content}" />
+                </Border>
+            </Popup>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

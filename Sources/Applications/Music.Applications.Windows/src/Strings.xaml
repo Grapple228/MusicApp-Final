@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <!--NavigationButtons-->
+    <system:String x:Key="HomeLabel">Home</system:String>
+    <system:String x:Key="BrowseLabel">Browse</system:String>
+
+    <!--Library-->
+    <system:String x:Key="LibraryLabel">LIBRARY</system:String>
+    <system:String x:Key="LikedLabel">Liked</system:String>
+    <system:String x:Key="TracksLabel">Tracks</system:String>
+    <system:String x:Key="AlbumsLabel">Albums</system:String>
+    <system:String x:Key="ArtistsLabel">Artists</system:String>
+    <system:String x:Key="PlaylistsLabel">Playlists</system:String>
+    <system:String x:Key="ArtistStudio">Artist Studio</system:String>
+    <system:String x:Key="AdminPanel">Admin Panel</system:String>
+
+    <!--ContentPage-->
+    <system:String x:Key="TitleLabel">Title</system:String>
+    <system:String x:Key="UserLabel">User</system:String>
+    <system:String x:Key="UserUpperLabel">USER</system:String>
+    <system:String x:Key="RolesLabel">Roles</system:String>
+    <system:String x:Key="NameLabel">Name</system:String>
+    <system:String x:Key="AlbumLabel">ALBUM</system:String>
+    <system:String x:Key="PlaylistLabel">PLAYLIST</system:String>
+    <system:String x:Key="TrackLabel">TRACK</system:String>
+    <system:String x:Key="ArtistLabel">ARTIST</system:String>
+    <system:String x:Key="StudioLabel">ARTIST STUDIO</system:String>
+    <system:String x:Key="PanelLabel">ADMIN PANEL</system:String>
+    <system:String x:Key="NoItemsFoundLabel">No Items Found</system:String>
+
+    <!--Settings-->
+    <system:String x:Key="SettingsLabel">Settings</system:String>
+    <system:String x:Key="DarkThemeLabel">Dark theme</system:String>
+    <system:String x:Key="ApplicationSettingsLabel">Application Settings</system:String>
+    <system:String x:Key="AccountSettingsLabel">Account Settings</system:String>
+
+    <!--Authorization-->
+    <system:String x:Key="SignInLabel">Sign In</system:String>
+    <system:String x:Key="SignUpLabel">Sign Up</system:String>
+    <system:String x:Key="ForgotPasswordLabel">Forgot password?</system:String>
+    <system:String x:Key="UsernameLabel">Username</system:String>
+    <system:String x:Key="EmailLabel">Email</system:String>
+    <system:String x:Key="PasswordLabel">Password</system:String>
+    <system:String x:Key="RepeatPasswordLabel">Repeat password</system:String>
+    <system:String x:Key="NewPasswordLabel">New password</system:String>
+    <system:String x:Key="RememberMeLabel">Remember Me</system:String>
+    <system:String x:Key="RegistrationDateLabel">Registration Date</system:String>
+    <system:String x:Key="HaveNoAccountLabel">Have no account?</system:String>
+    <system:String x:Key="AlreadyHaveAccountLabel">Already have account?</system:String>
+
+    <!--Creation-->
+    <system:String x:Key="PublicityLabel">Private</system:String>
+    <system:String x:Key="CreateLabel">Create</system:String>
+    <system:String x:Key="UpdateLabel">Update</system:String>
+
+    <!--Other-->
+    <system:String x:Key="AppNameLabel">MusicApp</system:String>
+    <system:String x:Key="SearchLabel">Search</system:String>
+    <system:String x:Key="LoadingLabel">Loading...</system:String>
+    <system:String x:Key="WelcomeMessageLabel">Welcome</system:String>
+    <system:String x:Key="SaveLabel">Save</system:String>
+    <system:String x:Key="CountLabel">Count: </system:String>
+    <system:String x:Key="YouLabel">You</system:String>
+    <system:String x:Key="NoPlaylists">No playlists</system:String>
+    <system:String x:Key="NoAlbums">No albums</system:String>
+    <system:String x:Key="NoArtists">No artists</system:String>
+    <system:String x:Key="NoTracks">No tracks</system:String>
+    <system:String x:Key="FileNotSelected">File not selected</system:String>
+    <system:String x:Key="GenresLabel">Genres</system:String>
+    <system:String x:Key="UsersLabel">Users</system:String>
+    <system:String x:Key="PublicationDateLabel">Publication date</system:String>
+    <system:String x:Key="ColorLabel">Color</system:String>
+    <system:String x:Key="ValueLabel">Value</system:String>
+    <system:String x:Key="PreviewLabel">Preview</system:String>
+    <system:String x:Key="NothingSelectedLabel">Nothing selected</system:String>
+    <system:String x:Key="NoItemsLeftLabel">No items left</system:String>
+    <system:String x:Key="ExampleLabel">Example</system:String>
+    <system:String x:Key="ConnectLabel">Connect</system:String>
+</ResourceDictionary>

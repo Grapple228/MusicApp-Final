@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>MusicClient</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Music.Shared.Audio" Version="1.0.3" />
+      <PackageReference Include="Music.Shared.DTOs" Version="1.0.17" />
+      <PackageReference Include="Music.Shared.DTOs.Requests" Version="1.0.9" />
+      <PackageReference Include="Music.Shared.Files" Version="1.0.0" />
+      <PackageReference Include="Music.Shared.Identity.Jwt" Version="1.0.9" />
+      <PackageReference Include="Music.Shared.Services" Version="1.0.1" />
+      <PackageReference Include="Music.Shared.Tools" Version="1.0.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="RestSharp" Version="110.1.0" />
+    </ItemGroup>
+
+</Project>

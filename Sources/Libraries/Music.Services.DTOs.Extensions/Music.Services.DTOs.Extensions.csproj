@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Music.Services.Exceptions" Version="1.0.1" />
+      <PackageReference Include="Music.Services.Models" Version="1.0.8" />
+      <PackageReference Include="Music.Shared.DTOs" Version="1.0.17" />
+      <PackageReference Include="Music.Shared.DTOs.Requests" Version="1.0.9" />
+      <PackageReference Include="Music.Shared.Tools" Version="1.0.0" />
+    </ItemGroup>
+
+</Project>

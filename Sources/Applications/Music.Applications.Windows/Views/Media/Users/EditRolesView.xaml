@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.Media.Users.EditRolesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:user="clr-namespace:Music.Applications.Windows.ViewModels.Media.User"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance user:EditRolesViewModel}"
+             d:DesignWidth="300">
+    <StackPanel>
+        <TextBlock Text="{Binding User.Username, FallbackValue=Username}" Style="{StaticResource HeaderTextBlock}"
+                   FontSize="14" />
+
+        <Separator Height="5" />
+
+        <Grid MinHeight="40">
+            <TextBlock Text="{DynamicResource NothingSelectedLabel}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding User.Roles.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <ListView ItemsSource="{Binding User.Roles}"
+                      VerticalAlignment="Center">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Focusable" Value="False" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <TextBlock Text="{Binding RoleString}" Style="{StaticResource HoverableAccentText}"
+                                               Margin="5"
+                                               x:Name="SelectedRoleText"
+                                               MouseLeftButtonDown="SelectedRoleText_OnMouseLeftButtonDown" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.Template>
+                    <ControlTemplate TargetType="{x:Type ListView}">
+                        <ItemsPresenter />
+                    </ControlTemplate>
+                </ListView.Template>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" Focusable="False" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
+
+        <Border Height="1px" Opacity="10"
+                Background="{DynamicResource TextColor}"
+                Margin="0, 5, 0, 5" />
+
+        <Grid MinHeight="40">
+            <TextBlock Text="{DynamicResource NoItemsLeftLabel}" Foreground="{DynamicResource TextColor}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding NotSelectedRoles.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <ListView ItemsSource="{Binding NotSelectedRoles}"
+                      VerticalAlignment="Center">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Focusable" Value="False" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <TextBlock x:Name="NotSelectedRoleText" Text="{Binding RoleString}"
+                                               Style="{StaticResource HoverableAccentText}"
+                                               Margin="5"
+                                               MouseLeftButtonDown="NotSelectedRoleText_OnMouseLeftButtonDown" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.Template>
+                    <ControlTemplate TargetType="{x:Type ListView}">
+                        <ItemsPresenter />
+                    </ControlTemplate>
+                </ListView.Template>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" Focusable="False" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
+    </StackPanel>
+</UserControl>

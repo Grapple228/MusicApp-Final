@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.Media.Users.IdentityUserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:user="clr-namespace:Music.Applications.Windows.ViewModels.Media.User"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             xmlns:components="clr-namespace:Music.Applications.Windows.Components"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance user:IdentityUserViewModel}"
+             d:DesignWidth="300">
+   
+    <Grid>
+        <components:LoadingComponent />
+        <components:NotFoundComponent />
+        <components:ServerUnavailableComponent />
+
+        <Grid Style="{StaticResource ContentGrid}">
+            <StackPanel>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Width="80" Height="80" HorizontalAlignment="Left"
+                            Background="{DynamicResource EmptyImageColor}" CornerRadius="7" 
+                            Name="ImageBorder" Margin="0,0,10,0">
+                    
+                        <Border CornerRadius="5" Name="MediaImage">
+                            <Border.Background>
+                                <ImageBrush Stretch="Fill" ImageSource="{Binding User.MediumImagePath, FallbackValue=null}" />
+                            </Border.Background>
+                        </Border>
+                    </Border>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{DynamicResource UserUpperLabel}" Foreground="{DynamicResource TextColor}"
+                                   FontSize="11px" HorizontalAlignment="Left" />
+
+                        <TextBlock>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource HeaderTextBlock}">
+                                    <Setter Property="Text" Value="{Binding User.Username, FallbackValue=Username}" />
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" VerticalAlignment="Top"
+                                Orientation="Horizontal">
+
+                        <controls:ImageButton Width="25" Height="25" x:Name="PropertiesButton"
+                                              ImageWidth="15" ImageHeight="15"
+                                              Image="{StaticResource ThreeDotsIcon}"
+                                              VerticalAlignment="Center" HorizontalAlignment="Center"
+                                              HoverColor="{DynamicResource HoverDarkColor}"
+                                              Clicked="PropertiesButton_OnClicked" />
+                    </StackPanel>
+                </Grid>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{DynamicResource EmailLabel}" Style="{StaticResource HeaderTextBlock}" VerticalAlignment="Center"/>
+                                                
+                    <Separator Width="5"/>
+                    
+                    <controls:CustomCheckbox
+                        IsChecked="{Binding User.IsEmailConfirmed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="False" LabelText=""
+                        BoxColor="{DynamicResource BackgroundColor}" />
+                    <Separator Width="2px" />
+                    <TextBlock Text="{Binding User.Email, FallbackValue=Email}"
+                               Style="{StaticResource HoverableText}"
+                               VerticalAlignment="Center"
+                               x:Name="EmailText"
+                               MouseLeftButtonDown="EmailText_OnMouseLeftButtonDown" />
+                </StackPanel>
+                
+                <Separator Height="3px"/>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource HeaderTextBlock}" Text="{DynamicResource RolesLabel}" VerticalAlignment="Center"/>
+                    
+                    <Separator Width="5"/>
+                    
+                    <ListView ItemsSource="{Binding User.Roles}"
+                              VerticalAlignment="Center">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Focusable" Value="False" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <TextBlock Text="{Binding RoleString}" VerticalAlignment="Center" Margin="0,3,5,0"/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.Template>
+                            <ControlTemplate TargetType="{x:Type ListView}">
+                                <ItemsPresenter />
+                            </ControlTemplate>
+                        </ListView.Template>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </StackPanel>
+                
+                <Separator Height="3px"/>
+                
+                <StackPanel Orientation="Horizontal">
+                    
+                    <TextBlock Text="{DynamicResource RegistrationDateLabel}" Style="{StaticResource HeaderTextBlock}"/>
+                    
+                    <Separator Width="5"/>
+                    
+                    <TextBlock Text="{Binding User.RegistrationDate, FallbackValue=23-03-24}" VerticalAlignment="Center" Margin="0,3,0,0"></TextBlock>
+                    
+                </StackPanel>
+                
+                <Separator Height="4"/>
+                
+                
+                <Border Style="{StaticResource BlockWithBackgroundStyle}" Background="{DynamicResource BackgroundColor}" HorizontalAlignment="Left">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource HeaderText}" Text="Change password" HorizontalAlignment="Center"/>
+                        <Separator Height="3"/>
+                        <controls:CustomPasswordBox Width="200" x:Name="CurPassword" HorizontalAlignment="Left"  Tag="Current Password"/>
+                        <Separator Height="2"/>
+                        <controls:CustomPasswordBox Width="200" x:Name="NewPassword" HorizontalAlignment="Left" Tag="New"/>
+                        <Separator Height="3"/>
+                
+                        <controls:CustomButton LabelText="Change password" Width="200" HorizontalAlignment="Left"
+                                               Clicked="CustomButton_OnClicked"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

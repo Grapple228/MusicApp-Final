@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.Authentication.AuthenticationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:authentication="clr-namespace:Music.Applications.Windows.ViewModels.Authentication"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             mc:Ignorable="d" Background="{DynamicResource HoverDarkColor}"
+             d:DataContext="{d:DesignInstance authentication:AuthenticationViewModel}">
+
+    <Border VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="7"
+            Background="{DynamicResource BackgroundColor}" Focusable="False"
+            Padding="10" BorderBrush="{DynamicResource TextColor}" BorderThickness="0">
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="{DynamicResource SignInLabel}" Style="{StaticResource HeaderTextBlock}"
+                       Margin="3,0,0,0" />
+
+            <Separator Height="2px" />
+
+            <TextBox Name="UsernameText" Tag="{DynamicResource UsernameLabel}"
+                     Width="240" PreviewKeyDown="UsernameText_OnPreviewKeyDown"
+                     Text="{Binding Username}" />
+            <Separator Height="2px" />
+            <controls:CustomPasswordBox x:Name="PasswordText" Width="240"
+                                        PreviewKeyDown="PasswordText_OnPreviewKeyDown" />
+            <Separator Height="2px" />
+
+            <TextBlock Name="ForgotTextBlock" Text="{DynamicResource ForgotPasswordLabel}"
+                       Style="{StaticResource HoverableAccentText}"
+                       VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0, -3, 0, 0" />
+
+            <Separator Height="2px" />
+
+            <controls:CustomCheckbox IsChecked="{Binding IsRemember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     LabelText="{DynamicResource RememberMeLabel}" />
+
+            <Separator Height="2px" />
+
+            <TextBlock Foreground="{DynamicResource AlertColor}" Opacity="0.7" Text="{Binding ErrorMessage}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ErrorMessage.Length, FallbackValue=0}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <Separator Height="2px" />
+
+            <controls:CustomButton x:Name="SignInButton"
+                                   LabelText="{DynamicResource SignInLabel}"
+                                   Clicked="SignInButton_OnClicked" />
+
+            <Separator Height="2px" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="{DynamicResource HaveNoAccountLabel}" VerticalAlignment="Bottom"
+                           Foreground="{DynamicResource AccentTextColor}" />
+                <Separator Width="3" />
+                <TextBlock Name="SignUpTextBlock" Text="{DynamicResource SignUpLabel}"
+                           Style="{StaticResource HoverableAccentText}"
+                           VerticalAlignment="Bottom" Margin="0, -3, 0, 0"
+                           MouseLeftButtonDown="SignUpTextBlock_OnMouseLeftButtonDown" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

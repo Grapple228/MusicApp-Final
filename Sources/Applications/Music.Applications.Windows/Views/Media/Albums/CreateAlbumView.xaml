@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.Media.Albums.CreateAlbumView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             xmlns:album="clr-namespace:Music.Applications.Windows.ViewModels.Media.Album"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance album:CreateAlbumViewModel}"
+             d:DesignWidth="300">
+    <StackPanel>
+        <TextBox Tag="Title" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Name="TitleTextBox" Background="{DynamicResource BackgroundColor}"
+                 PreviewKeyDown="TitleTextBox_OnPreviewKeyDown" />
+
+        <Separator Height="4" />
+
+        <TextBlock Text="{DynamicResource PublicationDateLabel}" Style="{StaticResource AdditionalHeaderText}" />
+        <DatePicker SelectedDateFormat="Short" BorderThickness="0"
+                    SelectedDate="{Binding PublicationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsTodayHighlighted="True" SelectedDateChanged="DatePicker_OnSelectedDateChanged"
+                    x:Name="PublicationDatePicker" LostFocus="PublicationDatePicker_OnLostFocus" />
+
+        <Separator Height="3px" />
+
+        <TextBlock Foreground="{DynamicResource AlertColor}" Opacity="0.7" Text="{Binding ErrorMessage}">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ErrorMessage.Length, FallbackValue=0}" Value="0">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <Separator Height="2" />
+
+        <controls:CustomButton x:Name="CreateButton"
+                               LabelText="{DynamicResource CreateLabel}"
+                               Clicked="CreateButton_OnClicked" />
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.Media.Playlists.CreatePlaylistView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             xmlns:playlist="clr-namespace:Music.Applications.Windows.ViewModels.Media.Playlist"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance playlist:CreatePlaylistViewModel}"
+             d:DesignWidth="300" x:Name="Control">
+    <StackPanel Orientation="Vertical">
+        <TextBox Tag="Title" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Name="TitleTextBox" Background="{DynamicResource BackgroundColor}"
+                 PreviewKeyDown="TitleTextBox_OnPreviewKeyDown" />
+
+        <Separator Height="4" />
+
+        <controls:CustomCheckbox IsChecked="{Binding IsPrivate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 LabelText="{DynamicResource PublicityLabel}"
+                                 BoxColor="{DynamicResource BackgroundColor}" />
+
+        <Separator Height="4px" />
+
+        <TextBlock Foreground="{DynamicResource AlertColor}" Opacity="0.7" Text="{Binding ErrorMessage}">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ErrorMessage.Length, FallbackValue=0}" Value="0">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <Separator Height="2" />
+
+        <controls:CustomButton x:Name="CreateButton"
+                               LabelText="{DynamicResource CreateLabel}"
+                               Clicked="CreateButton_OnClicked" />
+    </StackPanel>
+</UserControl>

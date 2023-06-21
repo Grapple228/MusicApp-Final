@@ -1,0 +1,166 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.RoomView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Music.Applications.Windows.ViewModels"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:RoomViewModel}"
+             d:DesignHeight="120" d:DesignWidth="200" x:Name="Control">
+    <Grid>
+        <Grid x:Name="ConnectedRoom">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsInRoom, FallbackValue=True}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Grid>
+                <controls:ImageButton Width="25" Height="25" x:Name="LogoutButton"
+                                      Clicked="LogoutButton_OnClicked"
+                                      ImageWidth="15" ImageHeight="15"
+                                      Image="{StaticResource LogoutIcon}"
+                                      VerticalAlignment="Top" HorizontalAlignment="Left"
+                                      HoverColor="{DynamicResource HoverLightColor}">
+                    <controls:ImageButton.Style>
+                        <Style TargetType="{x:Type controls:ImageButton}"
+                               BasedOn="{StaticResource {x:Type controls:ImageButton}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=LogoutButton, Path=IsMouseOver}"
+                                             Value="True">
+                                    <Setter Property="ImageColor" Value="{DynamicResource AlertColor}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </controls:ImageButton.Style>
+                </controls:ImageButton>
+                
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock Text="Code:" Style="{StaticResource AdditionalHeaderText}" VerticalAlignment="Center" Margin="0,1,0,0"/>
+                                        
+                    <Separator Width="5"/>
+                    
+                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Text="{Binding Room.RoomCode, FallbackValue=FAS3W5EE}"
+                               Style="{StaticResource HoverableAccentText}" FontSize="14"
+                               Margin="0,0,0,0" Padding="0"
+                               x:Name="RoomCodeText"
+                               MouseLeftButtonDown="RoomCodeText_OnMouseLeftButtonDown"/>
+                </StackPanel>
+            </Grid>
+            
+            <StackPanel Grid.Row="1" Margin="0,3,0,0">
+                <ListView ItemsSource="{Binding Room.Users}" Margin="0,-3,0,0">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Border Margin="0,3,0,0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <Border Grid.Column="0" Width="25px" Height="25px" Margin="5,0,5,0"
+                                                        Background="{DynamicResource EmptyImageColor}" CornerRadius="5">
+                                                    <Border CornerRadius="5">
+                                                        <Border.Background>
+                                                            <ImageBrush Stretch="Fill" ImageSource="{Binding SmallImagePath}" />
+                                                        </Border.Background>
+                                                    </Border>
+                                                </Border>
+                                                
+                                                <TextBlock Grid.Column="1" Text="{Binding Username}" Style="{StaticResource HoverableAccentText}"
+                                                           x:Name="UsernameTextBlock" VerticalAlignment="Center" MouseLeftButtonDown="UsernameTextBlock_OnMouseLeftButtonDown"/>
+                                                
+                                                <controls:ImageButton Grid.Column="2" Width="25" Height="25" x:Name="DeleteButton"
+                                                                      ImageWidth="15" ImageHeight="15"
+                                                                      Image="{StaticResource TrashIcon}"
+                                                                      VerticalAlignment="Center"
+                                                                      HorizontalAlignment="Center"
+                                                                      HoverColor="Transparent"
+                                                                      Clicked="DeleteButton_OnClicked">
+                                                    <controls:ImageButton.Style>
+                                                        <Style TargetType="{x:Type controls:ImageButton}" BasedOn="{StaticResource {x:Type controls:ImageButton}}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=Control, Path=DataContext.Room.IsUserOwner, FallbackValue=False}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsUserOwner, FallbackValue=False}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                </DataTrigger>
+                                                                
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="ImageColor"
+                                                                            Value="{DynamicResource AlertColor}" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </controls:ImageButton.Style>
+                                                </controls:ImageButton>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.Template>
+                        <ControlTemplate TargetType="ListView">
+                            <ItemsPresenter/>
+                        </ControlTemplate>
+                    </ListView.Template>
+                </ListView>
+            </StackPanel>
+        </Grid>
+        
+        <Grid x:Name="NotConnectedRoom">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsInRoom, FallbackValue=True}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            
+            <controls:ImageButton Image="{DynamicResource AddIcon}" VerticalAlignment="Top" HorizontalAlignment="Right"
+                                  Width="20" Height="20" ImageHeight="15" ImageWidth="15"
+                                  Clicked="CreateButton_OnClicked"/>
+            
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBox x:Name="RoomCodeTextBox" Tag="Room Code" Width="85px" MaxLength="8" CharacterCasing="Upper"
+                         Background="{DynamicResource BackgroundColor}"
+                         FontSize="12"/>
+                <Separator Width="5"/>
+                <controls:CustomButton LabelText="{DynamicResource ConnectLabel}" Height="25"
+                                       Clicked="ConnectButton_OnClicked" >
+                    <controls:CustomButton.Style>
+                        <Style TargetType="{x:Type controls:CustomButton}" BasedOn="{StaticResource {x:Type controls:CustomButton}}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=RoomCodeTextBox, Path=Text.Length}" Value="8">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </controls:CustomButton.Style>
+                </controls:CustomButton>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

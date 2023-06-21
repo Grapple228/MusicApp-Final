@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Music.Shared.DTOs.Common" Version="1.0.2" />
+      <PackageReference Include="Music.Shared.Files" Version="1.0.0" />
+    </ItemGroup>
+
+</Project>

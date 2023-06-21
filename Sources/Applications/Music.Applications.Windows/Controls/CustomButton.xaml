@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Controls.CustomButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Music.Applications.Windows.Controls"
+             mc:Ignorable="d" x:Name="Control">
+    <UserControl.Template>
+        <ControlTemplate TargetType="{x:Type local:CustomButton}">
+            <Border Margin="0" CornerRadius="{Binding CornerRadius, ElementName=Control}" Padding="10, 6"
+                    Background="{TemplateBinding ButtonColor}"
+                    HorizontalAlignment="{Binding HorizontalAlignment, ElementName=Control}"
+                    VerticalAlignment="{Binding VerticalAlignment, ElementName=Control}" Name="Button"
+                    MouseLeftButtonDown="Button_OnMouseLeftButtonDown" Width="{TemplateBinding Width}">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="Opacity" Value="0.7" />
+                            </Trigger>
+                            
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <TextBlock x:Name="Box" Text="{TemplateBinding LabelText}"
+                           Foreground="{TemplateBinding LabelColor}"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

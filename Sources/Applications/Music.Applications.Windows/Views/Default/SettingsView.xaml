@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.Default.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:default="clr-namespace:Music.Applications.Windows.ViewModels.Default"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             d:DataContext="{d:DesignInstance default:SettingsViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{DynamicResource SettingsLabel}" FontSize="16"
+                           Foreground="{DynamicResource AccentTextColor}" VerticalAlignment="Center" />
+
+                <controls:CustomButton x:Name="SaveButton" Grid.Column="1"
+                                       LabelText="{DynamicResource SaveLabel}"
+                                       Clicked="SaveButton_OnClicked">
+                    <controls:CustomButton.Style>
+                        <Style TargetType="{x:Type controls:CustomButton}"
+                               BasedOn="{StaticResource {x:Type controls:CustomButton}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsNotSaved, FallbackValue=True}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </controls:CustomButton.Style>
+                </controls:CustomButton>
+            </Grid>
+        </StackPanel>
+
+        <ScrollViewer Focusable="False" Grid.Row="1" PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
+                      VerticalScrollBarVisibility="Auto">
+
+            <StackPanel Orientation="Vertical">
+
+                <Grid Visibility="Collapsed">
+                    <TextBlock Margin="0,5" Text="{DynamicResource AccountSettingsLabel}"
+                               Style="{StaticResource HeaderText}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Foreground="{DynamicResource AccentTextColor}"
+                                   Text="{DynamicResource DarkThemeLabel}" FontSize="14" VerticalAlignment="Center" />
+                        <CheckBox Grid.Column="1" Grid.Row="0" Name="DarkThemeToggle2"
+                                  Style="{StaticResource ToggleStyle}"
+                                  IsChecked="{Binding IsDarkTheme, FallbackValue=True}" />
+                    </Grid>
+                </Grid>
+
+
+                <TextBlock Margin="0,5" Text="{DynamicResource ApplicationSettingsLabel}"
+                           Style="{StaticResource HeaderText}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Foreground="{DynamicResource AccentTextColor}"
+                               Text="{DynamicResource DarkThemeLabel}" FontSize="14" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="1" Grid.Row="0" Name="DarkThemeToggle" Style="{StaticResource ToggleStyle}"
+                              IsChecked="{Binding IsDarkTheme, FallbackValue=True}" />
+
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

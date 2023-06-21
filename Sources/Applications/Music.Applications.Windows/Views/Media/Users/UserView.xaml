@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.Media.Users.UserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:user="clr-namespace:Music.Applications.Windows.ViewModels.Media.User"
+             xmlns:components="clr-namespace:Music.Applications.Windows.Components"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance user:UserViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300" x:Name="Control">
+    <Grid>
+        <components:LoadingComponent />
+        <components:NotFoundComponent />
+        <components:ServerUnavailableComponent />
+
+        <Grid Style="{StaticResource ContentGrid}">
+            <StackPanel>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Width="80" Height="80" HorizontalAlignment="Left"
+                            Background="{DynamicResource EmptyImageColor}" CornerRadius="7" 
+                            Name="ImageBorder" Margin="0,0,10,0">
+                    
+                        <Border CornerRadius="5" Name="MediaImage">
+                            <Border.Background>
+                                <ImageBrush Stretch="Fill" ImageSource="{Binding User.MediumImagePath, FallbackValue=null}" />
+                            </Border.Background>
+                        </Border>
+                    </Border>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{DynamicResource UserUpperLabel}" Foreground="{DynamicResource TextColor}"
+                                   FontSize="11px" HorizontalAlignment="Left" />
+
+                        <TextBlock>
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource HeaderTextBlock}">
+                                    <Setter Property="Text" Value="{Binding User.Username, FallbackValue=Username}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding User.IsUserOwner}" Value="True">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                            <Setter Property="Text" Value="{DynamicResource YouLabel}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" VerticalAlignment="Top"
+                                Orientation="Horizontal">
+
+                        <controls:ImageButton Width="25" Height="25" x:Name="PropertiesButton"
+                                              ImageWidth="15" ImageHeight="15"
+                                              Image="{StaticResource ThreeDotsIcon}"
+                                              VerticalAlignment="Center" HorizontalAlignment="Center"
+                                              HoverColor="{DynamicResource HoverDarkColor}"
+                                              Clicked="PropertiesButton_OnClicked" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

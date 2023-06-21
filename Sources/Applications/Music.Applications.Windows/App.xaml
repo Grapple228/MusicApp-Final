@@ -1,0 +1,22 @@
+﻿<Application x:Class="Music.Applications.Windows.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="/src/ViewLinking.xaml" />
+                <ResourceDictionary Source="/src/GlobalStyles.xaml" />
+                <ResourceDictionary Source="/src/Colors.xaml" />
+                <ResourceDictionary Source="/src/Icons.xaml" />
+                <ResourceDictionary Source="/src/Strings.xaml" />
+
+                <ResourceDictionary Source="Styles/ScrollViewerStyle.xaml" />
+                <ResourceDictionary Source="Styles/ToggleStyle.xaml" />
+                <ResourceDictionary Source="Styles/SliderStyle.xaml" />
+                <ResourceDictionary Source="Styles/TextBoxStyle.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

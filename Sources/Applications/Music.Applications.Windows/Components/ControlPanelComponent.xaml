@@ -1,0 +1,503 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Components.ControlPanelComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Music.Applications.Windows.Components"
+             xmlns:viewModels="clr-namespace:Music.Applications.Windows.ViewModels"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             xmlns:converters="clr-namespace:Music.Applications.Windows.Converters"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:ControlPanelViewModel}"
+             d:DesignWidth="780" Background="{DynamicResource BlockColor}">
+
+    <UserControl.Resources>
+        <converters:TimeConverter x:Key="TimeConverter" />
+    </UserControl.Resources>
+
+    <Grid Height="75">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="155.5px" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="155.5px" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+
+                <Border Width="40px" Height="40px" Margin="0"
+                        Background="{DynamicResource EmptyImageColor}" CornerRadius="5">
+                    <Border CornerRadius="5">
+                        <Border.Background>
+                            <ImageBrush Stretch="Fill" ImageSource="{Binding CurrentTrack.SmallImagePath}" />
+                        </Border.Background>
+                    </Border>
+                </Border>
+
+                <Separator Width="5" />
+
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding CurrentTrack.Title, FallbackValue=No Track}"
+                               Style="{StaticResource HoverableAccentText}"
+                               x:Name="TrackTitle" MouseLeftButtonDown="TrackTitle_OnMouseLeftButtonDown" />
+
+                    <Grid>
+                        <ListView ItemsSource="{Binding Artists}">
+                            <ListView.Style>
+                                <Style TargetType="ListView">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Artists.Count, FallbackValue=0}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.Style>
+
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <TextBlock Text="{Binding Name, FallbackValue=Artist Name}"
+                                                           Style="{StaticResource HoverableText}" Margin="0,0,5,0"
+                                                           x:Name="ArtistTextBlock"
+                                                           MouseLeftButtonDown="ArtistTextBlock_OnMouseLeftButtonDown" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.Template>
+                                <ControlTemplate TargetType="{x:Type ListView}">
+                                    <ItemsPresenter />
+                                </ControlTemplate>
+                            </ListView.Template>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+
+                        <TextBlock Text="{DynamicResource NoArtists}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Artists.Count, FallbackValue=0}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <controls:CustomPopup Target="{Binding ElementName=CurrentContainerButton}" x:Name="TracksQueryPopup"
+                                  Placement="Top" CornerRadius="7" Background="{DynamicResource BlockColor}"
+                                  Padding="5" BorderThickness="1" Width="200" Height="120" HorizontalOffset="-170">
+                <controls:CustomPopup.Style>
+                    <Style TargetType="{x:Type controls:CustomPopup}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=CurrentContainerButton, Path=IsMouseOver}"
+                                         Value="True">
+                                <Setter Property="IsOpen" Value="True" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:CustomPopup.Style>
+                
+                <ScrollViewer PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
+                              VerticalScrollBarVisibility="Auto" Focusable="False">
+                    <ListView ItemsSource="{Binding ListenQuery}" >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListViewItem">
+                                            <Border Padding="3" CornerRadius="5">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                                                <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                
+                                                <StackPanel Orientation="Horizontal">
+                                                    <local:PlayingImageComponent Width="40" Height="40"
+                                                        ImagePath="{Binding MediumImagePath}"
+                                                        IsPlaying="{Binding IsPlaying}"
+                                                        IsCurrent="{Binding IsCurrent}"
+                                                        IsAlwaysShown="True"
+                                                        HorizontalAlignment="Left" Padding="5"
+                                                        Margin="0,0,5,0"
+                                                        Clicked="PlayingImageComponent_OnClicked"/>
+
+                                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Title, FallbackValue=Track Title}"
+                                                                   Style="{StaticResource HoverableAccentText}"
+                                                                   MouseLeftButtonDown="QueryTrackTitle_OnMouseLeftButtonDown" />
+
+                                                        <Grid>
+                                                            <ListView ItemsSource="{Binding Artists}">
+                                                                <ListView.Style>
+                                                                    <Style TargetType="ListView">
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Artists.Count}" Value="0">
+                                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </ListView.Style>
+
+                                                                <ListView.ItemContainerStyle>
+                                                                    <Style TargetType="ListViewItem">
+                                                                        <Setter Property="Template">
+                                                                            <Setter.Value>
+                                                                                <ControlTemplate TargetType="ListViewItem">
+                                                                                    <TextBlock Text="{Binding Name, FallbackValue=Artist Name}"
+                                                                                               Style="{StaticResource HoverableText}" Margin="0,0,5,0"
+                                                                                               MouseLeftButtonDown="QueryArtistTextBlock_OnMouseLeftButtonDown" />
+                                                                                </ControlTemplate>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Style>
+                                                                </ListView.ItemContainerStyle>
+                                                                <ListView.Template>
+                                                                    <ControlTemplate TargetType="{x:Type ListView}">
+                                                                        <ItemsPresenter />
+                                                                    </ControlTemplate>
+                                                                </ListView.Template>
+                                                                <ListView.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <WrapPanel Orientation="Horizontal" />
+                                                                    </ItemsPanelTemplate>
+                                                                </ListView.ItemsPanel>
+                                                            </ListView>
+
+                                                            <TextBlock Text="{DynamicResource NoArtists}">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                                                        <Setter Property="Visibility" Value="Hidden" />
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Artists.Count, FallbackValue=0}" Value="0">
+                                                                                <Setter Property="Visibility" Value="Visible" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.Template>
+                            <ControlTemplate TargetType="ListView">
+                                <ItemsPresenter/>
+                            </ControlTemplate>
+                        </ListView.Template>
+                    </ListView>
+                </ScrollViewer>
+            </controls:CustomPopup>
+            
+            <controls:CustomPopup Target="{Binding ElementName=RoomButton}" x:Name="RoomPopup"
+                                  Placement="Top" CornerRadius="7" Background="{DynamicResource BlockColor}"
+                                  Padding="5" BorderThickness="1" Width="200" Height="120" HorizontalOffset="-170">
+                <controls:CustomPopup.Style>
+                    <Style TargetType="{x:Type controls:CustomPopup}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=RoomButton, Path=IsMouseOver}"
+                                         Value="True">
+                                <Setter Property="IsOpen" Value="True" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:CustomPopup.Style>
+                
+                <ContentControl Content="{Binding RoomViewModel}"/>
+            </controls:CustomPopup>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <local:ReactionComponent Grid.Column="0" DistanceBetween="2"
+                                         IsLiked="{Binding CurrentTrack.IsLiked, FallbackValue=False}"
+                                         IsBlocked="{Binding CurrentTrack.IsBlocked, FallbackValue=False}"
+                                         LikeColor="{DynamicResource AlertColor}"
+                                         BlockColor="{DynamicResource AccentTextColor}"
+                                         HoverColor="{DynamicResource HoverDarkColor}"
+                                         Liked="ReactionComponent_OnLiked" IsEnabled="{Binding IsReactionEnabled, FallbackValue=True}"
+                                         VerticalAlignment="Center" HorizontalAlignment="Left"
+                                         Blocked="ReactionComponent_OnBlocked" >
+                    <local:ReactionComponent.Style>
+                        <Style TargetType="{x:Type local:ReactionComponent}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRepeatEnabled}" Value="False">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </local:ReactionComponent.Style>
+                </local:ReactionComponent>
+
+                
+                
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <controls:ImageButton Width="25" Height="25" x:Name="ShuffleButton"
+                                          ImageWidth="15" ImageHeight="15"
+                                          VerticalAlignment="Center"
+                                          HoverColor="{DynamicResource HoverDarkColor}"
+                                          Clicked="ShuffleButton_OnClicked" IsEnabled="{Binding IsShuffleEnabled, FallbackValue=True}">
+                        <controls:ImageButton.Style>
+                            <Style TargetType="{x:Type controls:ImageButton}"
+                                   BasedOn="{StaticResource {x:Type controls:ImageButton}}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Player.ShuffleType, FallbackValue=None}"
+                                                 Value="None">
+                                        <Setter Property="Image" Value="{DynamicResource NoShuffleIcon}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Player.ShuffleType, FallbackValue=NoShuffle}" Value="Shuffle">
+                                        <Setter Property="Image" Value="{DynamicResource ShuffleIcon}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </controls:ImageButton.Style>
+                    </controls:ImageButton>
+
+                    <Separator Width="2" />
+
+                    <controls:ImageButton Width="25" Height="25" x:Name="PrevButton"
+                                          ImageWidth="15" ImageHeight="15"
+                                          Image="{StaticResource PrevTrackIcon}"
+                                          VerticalAlignment="Center"
+                                          HoverColor="{DynamicResource HoverDarkColor}" 
+                                          Clicked="PrevButton_OnClicked"/>
+
+                    <Separator Width="2" />
+
+                    <controls:ImageButton Width="33" Height="33" x:Name="PlayButton"
+                                          ImageWidth="15" ImageHeight="15"
+                                          VerticalAlignment="Center" Clicked="PlayButton_OnClicked">
+                        <controls:ImageButton.Style>
+                            <Style TargetType="{x:Type controls:ImageButton}"
+                                   BasedOn="{StaticResource RoundImageAccentButton}">
+                                <Setter Property="Image" Value="{DynamicResource PauseIcon}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsPlaying, FallbackValue=True}" Value="False">
+                                        <Setter Property="Image" Value="{DynamicResource PlayIcon}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </controls:ImageButton.Style>
+                    </controls:ImageButton>
+
+                    <Separator Width="2" />
+
+                    <controls:ImageButton Width="25" Height="25" x:Name="NextButton"
+                                          ImageWidth="15" ImageHeight="15"
+                                          Image="{StaticResource NextTrackIcon}"
+                                          VerticalAlignment="Center"
+                                          HoverColor="{DynamicResource HoverDarkColor}" 
+                                          Clicked="NextButton_OnClicked"/>
+
+                    <Separator Width="2" />
+
+                    <controls:ImageButton Width="25" Height="25" x:Name="RepeatButton"
+                                          ImageWidth="15" ImageHeight="15"
+                                          VerticalAlignment="Center" IsEnabled="{Binding IsRepeatEnabled, FallbackValue=True}"
+                                          HoverColor="{DynamicResource HoverDarkColor}"
+                                          MouseLeftButtonDown="RepeatButton_OnMouseLeftButtonDown"
+                                          MouseRightButtonDown="RepeatButton_OnMouseRightButtonDown">
+                        <controls:ImageButton.Style>
+                            <Style TargetType="{x:Type controls:ImageButton}"
+                                   BasedOn="{StaticResource {x:Type controls:ImageButton}}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Player.RepeatType, FallbackValue=None}" Value="None">
+                                        <Setter Property="Image" Value="{DynamicResource NoRepeatIcon}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Player.RepeatType}" Value="Track">
+                                        <Setter Property="Image" Value="{DynamicResource TrackRepeatIcon}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Player.RepeatType}" Value="Container">
+                                        <Setter Property="Image" Value="{DynamicResource ContainerRepeatIcon}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </controls:ImageButton.Style>
+                    </controls:ImageButton>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                    
+                    <controls:ImageButton Width="25" Height="25" x:Name="CurrentContainerButton"
+                                          ImageWidth="15" ImageHeight="15"
+                                          Image="{StaticResource CurrentPlaylistIcon}"
+                                          VerticalAlignment="Center"
+                                          HoverColor="{DynamicResource HoverDarkColor}" />
+
+                    <Separator Width="2" />
+
+                    <controls:CustomPopup Target="{Binding ElementName=VolumeButton}" x:Name="VolumePopup"
+                                          Placement="Top" CornerRadius="7" Background="{DynamicResource BlockColor}"
+                                          Padding="5" BorderThickness="1">
+                        <controls:CustomPopup.Style>
+                            <Style TargetType="{x:Type controls:CustomPopup}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=VolumeButton, Path=IsMouseOver}"
+                                                 Value="True">
+                                        <Setter Property="IsOpen" Value="True" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </controls:CustomPopup.Style>
+
+                        <Slider Orientation="Vertical" Height="100px"
+                                Minimum="0" Maximum="1"
+                                SmallChange="0.05" Cursor="Hand"
+                                LargeChange="0.15"
+                                Value="{Binding Player.Volume, Mode=TwoWay, FallbackValue=0.5, UpdateSourceTrigger=PropertyChanged}"
+                                IsMoveToPointEnabled="True"
+                                IsSnapToTickEnabled="True"
+                                TickFrequency="0.01" />
+                    </controls:CustomPopup>
+
+                    <controls:ImageButton Width="25" Height="25" x:Name="VolumeButton"
+                                          ImageWidth="15" ImageHeight="15"
+                                          VerticalAlignment="Center"
+                                          HoverColor="{DynamicResource HoverDarkColor}"
+                                          Clicked="VolumeButton_OnClicked">
+                        <controls:ImageButton.Style>
+                            <Style TargetType="{x:Type controls:ImageButton}"
+                                   BasedOn="{StaticResource {x:Type controls:ImageButton}}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Player.VolumeType}" Value="Muted">
+                                        <Setter Property="Image" Value="{DynamicResource MuteVolumeIcon}" />
+                                        <Setter Property="ImageColor" Value="{DynamicResource AlertColor}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Player.VolumeType}" Value="Low">
+                                        <Setter Property="Image" Value="{DynamicResource LowVolumeIcon}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Player.VolumeType, FallbackValue=High}" Value="High">
+                                        <Setter Property="Image" Value="{DynamicResource HighVolumeIcon}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </controls:ImageButton.Style>
+                    </controls:ImageButton>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <controls:ImageButton Width="25" Height="25" x:Name="RoomButton"
+                                      ImageWidth="15" ImageHeight="15"
+                                      Image="{StaticResource RoomIcon}"
+                                      VerticalAlignment="Center"
+                                      HoverColor="{DynamicResource HoverDarkColor}" >
+                    <controls:ImageButton.Style>
+                        <Style TargetType="{x:Type controls:ImageButton}" BasedOn="{StaticResource {x:Type controls:ImageButton}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RoomViewModel.IsInRoom, FallbackValue=False}" Value="True">
+                                    <Setter Property="ImageColor" Value="{DynamicResource AccentColor}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </controls:ImageButton.Style>
+                </controls:ImageButton>
+
+                <Separator Width="2" />
+
+                <controls:ImageButton Width="25" Height="25" x:Name="AddToPlaylistButton"
+                                      ImageWidth="15" ImageHeight="15"
+                                      Image="{StaticResource AddToPlaylistIcon}"
+                                      VerticalAlignment="Center"
+                                      HoverColor="{DynamicResource HoverDarkColor}"
+                                      Clicked="AddToPlaylistButton_OnClicked" />
+            </StackPanel>
+        </Grid>
+
+        <controls:CustomPopup Grid.Column="1" Grid.Row="1" Target="{Binding ElementName=PositionSlider}"
+                              x:Name="PositionPopup"
+                              Placement="Top" CornerRadius="5" HorizontalOffset="{Binding TimeOffset}" Padding="3,0"
+                              Background="{DynamicResource TextColor}">
+            <controls:CustomPopup.Style>
+                <Style TargetType="{x:Type controls:CustomPopup}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=PositionSlider, Path=IsMouseOver}" Value="True">
+                            <Setter Property="IsOpen" Value="True" />
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="IsOpen" Value="False" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsSliderEnabled}" Value="False">
+                            <Setter Property="IsOpen" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:CustomPopup.Style>
+
+            <TextBlock Text="{Binding CursorTime, FallbackValue=02:53, Converter={StaticResource TimeConverter}}"
+                       Foreground="{DynamicResource AccentTextColor}" FontSize="11" />
+
+        </controls:CustomPopup>
+
+        <Slider Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"
+                Minimum="0" x:Name="PositionSlider"
+                Maximum="{Binding Player.MaximumPosition, FallbackValue=5000}"
+                Value="{Binding Player.CurrentPosition, Mode=TwoWay, FallbackValue=300}"
+                MouseMove="PositionSlider_OnMouseMove" 
+                SmallChange="100000" Focusable="False"
+                LargeChange="400000" 
+                TickFrequency="1" IsEnabled="{Binding IsSliderEnabled, FallbackValue=True}"
+                IsMoveToPointEnabled="True"
+                IsSnapToTickEnabled="True" Cursor="Hand" />
+        <TextBlock Grid.Column="0" Grid.Row="1"
+                   Text="{Binding Player.CurrentPosition, FallbackValue=02:53, Converter={StaticResource TimeConverter}}"
+                   VerticalAlignment="Center" HorizontalAlignment="Right"
+                   Foreground="{DynamicResource AccentTextColor}"
+                   Margin="0,0,5,0" >
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSliderEnabled, FallbackValue=True}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="1"
+                   Text="{Binding Player.MaximumPosition, FallbackValue=05:37, Converter={StaticResource TimeConverter}}"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource AccentTextColor}"
+                   Margin="5,0,0,0">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSliderEnabled, FallbackValue=True}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </Grid>
+</UserControl>

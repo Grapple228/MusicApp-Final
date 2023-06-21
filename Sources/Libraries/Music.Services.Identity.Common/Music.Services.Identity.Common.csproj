@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.5" />
+      <PackageReference Include="Music.Services.Common" Version="1.0.0" />
+      <PackageReference Include="Music.Shared.Identity.Common" Version="1.0.9" />
+    </ItemGroup>
+
+</Project>

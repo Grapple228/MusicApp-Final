@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.Navigation.AdminPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:navigation="clr-namespace:Music.Applications.Windows.ViewModels.Navigation"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             xmlns:components="clr-namespace:Music.Applications.Windows.Components"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance navigation:AdminPanelViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <components:LoadingComponent />
+        <components:NotFoundComponent />
+        <components:ServerUnavailableComponent />
+
+        <Grid Style="{StaticResource ContentGrid}">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Border Width="80px" Height="80px" HorizontalAlignment="Left"
+                                Background="{DynamicResource EmptyImageColor}" CornerRadius="7"
+                                Margin="0,0,5,5">
+                            <Border CornerRadius="5">
+                                <Border.Background>
+                                    <ImageBrush Stretch="Fill"
+                                                ImageSource="{Binding User.LargeImagePath, FallbackValue=null}" />
+                                </Border.Background>
+                            </Border>
+                        </Border>
+                        <Separator Width="5px" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{DynamicResource PanelLabel}" Foreground="{DynamicResource TextColor}"
+                                   FontSize="11px" HorizontalAlignment="Left" />
+
+                        <TextBlock Text="{Binding User.Username, FallbackValue=Admin Username}"
+                                   Style="{StaticResource HeaderTextBlock}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" VerticalAlignment="Top"
+                                Orientation="Horizontal">
+
+                        <controls:ImageButton Width="25" Height="25" x:Name="PropertiesButton"
+                                              ImageWidth="15" ImageHeight="15"
+                                              Image="{StaticResource ThreeDotsIcon}"
+                                              VerticalAlignment="Center" HorizontalAlignment="Center"
+                                              HoverColor="{DynamicResource HoverDarkColor}"
+                                              Clicked="PropertiesButton_OnClicked" />
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10px">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type controls:SelectableButton}"
+                               BasedOn="{StaticResource {x:Type controls:SelectableButton}}">
+                            <Setter Property="Margin" Value="0,0,5,0" />
+                            <Setter Property="Height" Value="25" />
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <controls:SelectableButton x:Name="UsersNavigation" LabelText="{DynamicResource UsersLabel}"
+                                               Margin="0,0,5,0"
+                                               Height="25"
+                                               CornerRadius="5"
+                                               Clicked="UsersNavigation_OnClicked">
+                        <controls:SelectableButton.Style>
+                            <Style TargetType="{x:Type controls:SelectableButton}"
+                                   BasedOn="{StaticResource {x:Type controls:SelectableButton}}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CurrentDisplaying, FallbackValue=Users}"
+                                                 Value="Users">
+                                        <Setter Property="IsSelected" Value="True" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </controls:SelectableButton.Style>
+                    </controls:SelectableButton>
+
+                    <controls:SelectableButton x:Name="GenresNavigation" LabelText="{DynamicResource GenresLabel}"
+                                               Margin="0,0,5,0"
+                                               Height="25"
+                                               CornerRadius="5"
+                                               Clicked="GenresNavigation_OnClicked">
+                        <controls:SelectableButton.Style>
+                            <Style TargetType="{x:Type controls:SelectableButton}"
+                                   BasedOn="{StaticResource {x:Type controls:SelectableButton}}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CurrentDisplaying, FallbackValue=Users}"
+                                                 Value="Genres">
+                                        <Setter Property="IsSelected" Value="True" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </controls:SelectableButton.Style>
+                    </controls:SelectableButton>
+                </StackPanel>
+
+                <components:IdentityUsersComponent>
+                    <components:IdentityUsersComponent.Style>
+                        <Style TargetType="components:IdentityUsersComponent">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentDisplaying, FallbackValue=Users}" Value="Users">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </components:IdentityUsersComponent.Style>
+                </components:IdentityUsersComponent>
+
+                <components:GenresEditableComponent>
+                    <components:GenresEditableComponent.Style>
+                        <Style TargetType="components:GenresEditableComponent">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentDisplaying, FallbackValue=Users}" Value="Genres">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </components:GenresEditableComponent.Style>
+                </components:GenresEditableComponent>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

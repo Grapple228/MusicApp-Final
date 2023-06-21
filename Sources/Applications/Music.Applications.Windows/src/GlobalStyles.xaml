@@ -1,0 +1,129 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Music.Applications.Windows.Controls">
+    <Style TargetType="Separator">
+        <Setter Property="Visibility" Value="Hidden" />
+    </Style>
+
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="FontFamily" Value="Noto Sans" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:SelectableImageButton}">
+        <Setter Property="LabelColor" Value="{DynamicResource AccentTextColor}" />
+        <Setter Property="SelectedLabelColor" Value="{DynamicResource AccentTextColor}" />
+        <Setter Property="ButtonColor" Value="Transparent" />
+        <Setter Property="SelectedColor" Value="{DynamicResource BackgroundColor}" />
+    </Style>
+
+    <Style x:Key="HeaderText" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="Foreground" Value="{DynamicResource AccentTextColor}" />
+        <Setter Property="FontSize" Value="16px" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style TargetType="Grid" x:Key="ContentGrid">
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding LoadStatus, FallbackValue=Success}" Value="Success">
+                <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="AdditionalHeaderText" TargetType="TextBlock" BasedOn="{StaticResource HeaderText}">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Margin" Value="0,0,0,3" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:CustomCheckbox}">
+        <Setter Property="BoxWidth" Value="18" />
+        <Setter Property="BoxHeight" Value="18" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CornerRadius" Value="3" />
+        <Setter Property="BoxColor" Value="{DynamicResource BlockColor}" />
+        <Setter Property="SelectedBoxColor" Value="{DynamicResource AccentColor}" />
+        <Setter Property="LabelColor" Value="{DynamicResource AccentTextColor}" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:ImageButton}">
+        <Setter Property="ImageColor" Value="{DynamicResource AccentTextColor}" />
+        <Setter Property="HoverColor" Value="{DynamicResource HoverDarkColor}" />
+        <Setter Property="ButtonColor" Value="Transparent" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="CornerRadius" Value="5" />
+    </Style>
+
+
+    <Style TargetType="{x:Type controls:SelectableButton}">
+        <Setter Property="ButtonColor" Value="Transparent" />
+        <Setter Property="SelectedColor" Value="{DynamicResource AccentColor}" />
+        <Setter Property="SelectedLabelColor" Value="{DynamicResource HoverDarkColor}" />
+        <Setter Property="LabelColor" Value="{DynamicResource AccentTextColor}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:CustomButton}">
+        <Setter Property="ButtonColor" Value="{DynamicResource AccentColor}" />
+        <Setter Property="LabelColor" Value="{DynamicResource WhiteColor}" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:CustomButton}" x:Key="RoundAccentButton"
+           BasedOn="{StaticResource {x:Type controls:CustomButton}}">
+        <Setter Property="CornerRadius" Value="90" />
+    </Style>
+
+    <Style TargetType="{x:Type controls:ImageButton}" x:Key="RoundImageAccentButton"
+           BasedOn="{StaticResource {x:Type controls:ImageButton}}">
+        <Setter Property="CornerRadius" Value="90" />
+        <Setter Property="HoverColor" Value="{DynamicResource AccentColor}" />
+        <Setter Property="ButtonColor" Value="{DynamicResource AccentColor}" />
+    </Style>
+
+    <Style TargetType="Border" x:Key="BlockStyle">
+        <Setter Property="Margin" Value="5px" />
+        <Setter Property="CornerRadius" Value="5" />
+    </Style>
+
+    <Style TargetType="Border" x:Key="BlockWithBackgroundStyle"
+           BasedOn="{StaticResource BlockStyle}">
+        <Setter Property="Background" Value="{DynamicResource BlockColor}" />
+        <Setter Property="Padding" Value="5px" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="HoverableAccentText" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentTextColor}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Foreground" Value="{DynamicResource AccentColor}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="HoverableText" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Foreground" Value="{DynamicResource AccentColor}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="HeaderTextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="16px" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentTextColor}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+</ResourceDictionary>

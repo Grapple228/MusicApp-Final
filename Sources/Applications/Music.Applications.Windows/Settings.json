@@ -1,0 +1,10 @@
+﻿{
+  "GatewayPath": "http://localhost:8000",
+  "Volume": 0.5,
+  "IsDarkTheme": true,
+  "Language": "EnUs",
+  "DefaultRepeatType": "None",
+  "DefaultShuffleType": "None",
+  "AccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI1NzU4YzhlNy03OWI4LTQ3YTItYmQ3Zi02NTk0NmFiMjBmM2YiLCJSb2xlIjoiVXNlciIsIm5iZiI6MTY4NDU4NzU5OSwiZXhwIjoxNjg0NTg4NDk5LCJpYXQiOjE2ODQ1ODc1OTl9.t5NLGocJX2CQDsYLpkLQUQ56_7VweL63t_ZX8pT8j_s",
+  "RefreshToken": "hk36YARhYHgO9SVznPxS5XsHrF8="
+}

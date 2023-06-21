@@ -1,0 +1,127 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:authenticationModels="clr-namespace:Music.Applications.Windows.ViewModels.Authentication"
+                    xmlns:authenticationViews="clr-namespace:Music.Applications.Windows.Views.Authentication"
+                    xmlns:viewModels="clr-namespace:Music.Applications.Windows.ViewModels"
+                    xmlns:views="clr-namespace:Music.Applications.Windows.Views"
+                    xmlns:navigationModels="clr-namespace:Music.Applications.Windows.ViewModels.Navigation"
+                    xmlns:defaultModels="clr-namespace:Music.Applications.Windows.ViewModels.Default"
+                    xmlns:defaultViews="clr-namespace:Music.Applications.Windows.Views.Default"
+                    xmlns:navigationViews="clr-namespace:Music.Applications.Windows.Views.Navigation"
+                    xmlns:popup="clr-namespace:Music.Applications.Windows.ViewModels.Popup"
+                    xmlns:popup1="clr-namespace:Music.Applications.Windows.Views.Popup"
+                    xmlns:tracks="clr-namespace:Music.Applications.Windows.Views.Media.Tracks"
+                    xmlns:albums="clr-namespace:Music.Applications.Windows.Views.Media.Albums"
+                    xmlns:album="clr-namespace:Music.Applications.Windows.ViewModels.Media.Album"
+                    xmlns:artist="clr-namespace:Music.Applications.Windows.ViewModels.Media.Artist"
+                    xmlns:playlist="clr-namespace:Music.Applications.Windows.ViewModels.Media.Playlist"
+                    xmlns:track="clr-namespace:Music.Applications.Windows.ViewModels.Media.Track"
+                    xmlns:artists="clr-namespace:Music.Applications.Windows.Views.Media.Artists"
+                    xmlns:genre="clr-namespace:Music.Applications.Windows.ViewModels.Media.Genre"
+                    xmlns:genres="clr-namespace:Music.Applications.Windows.Views.Media.Genres"
+                    xmlns:users="clr-namespace:Music.Applications.Windows.Views.Media.Users"
+                    xmlns:user="clr-namespace:Music.Applications.Windows.ViewModels.Media.User"
+                    xmlns:playlists1="clr-namespace:Music.Applications.Windows.Views.Media.Playlists">
+
+    <DataTemplate DataType="{x:Type authenticationModels:AuthenticationViewModel}">
+        <authenticationViews:AuthenticationView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type authenticationModels:RegistrationViewModel}">
+        <authenticationViews:RegistrationView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type defaultModels:SettingsViewModel}">
+        <defaultViews:SettingsView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type viewModels:DefaultViewModel}">
+        <views:DefaultView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type navigationModels:HomeViewModel}">
+        <navigationViews:HomeView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type navigationModels:BrowseViewModel}">
+        <navigationViews:BrowseView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type navigationModels:AdminPanelViewModel}">
+        <navigationViews:AdminPanelView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type navigationModels:ArtistStudioViewModel}">
+        <navigationViews:ArtistStudioView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type navigationModels:LikedViewModel}">
+        <navigationViews:LikedView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type navigationModels:AlbumsViewModel}">
+        <navigationViews:AlbumsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type navigationModels:ArtistsViewModel}">
+        <navigationViews:ArtistsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type navigationModels:TracksViewModel}">
+        <navigationViews:TracksView />
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type popup:ChangeUsernameViewModel}">
+        <views:ChangeUsernameView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type album:MediaAlbumViewModel}">
+        <albums:MediaAlbumView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type track:MediaTrackViewModel}">
+        <tracks:MediaTrackView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type artist:MediaArtistViewModel}">
+        <artists:MediaArtistView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type playlist:MediaPlaylistViewModel}">
+        <playlists1:MediaPlaylistView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type user:UserViewModel}">
+        <users:UserView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type user:IdentityUserViewModel}">
+        <users:IdentityUserView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewModels:RoomViewModel}">
+        <views:RoomView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type playlist:CreatePlaylistViewModel}">
+        <playlists1:CreatePlaylistView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type track:CreateTrackViewModel}">
+        <tracks:CreateTrackView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type album:CreateAlbumViewModel}">
+        <albums:CreateAlbumView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type genre:EditGenreViewModel}">
+        <genres:EditGenreView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type popup:PopupNavigationViewModelBase}">
+        <popup1:PopupNavigationView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type playlist:AddToPlaylistViewModel}">
+        <playlists1:AddToPlaylistView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type album:AddToAlbumViewModel}">
+        <albums:AddToAlbumView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type artist:AddArtistViewModel}">
+        <artists:AddArtistView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type track:AddTrackViewModel}">
+        <tracks:AddTrackView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type genre:EditTrackGenreViewModel}">
+        <tracks:EditTrackGenreView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type user:EditRolesViewModel}">
+        <users:EditRolesView />
+    </DataTemplate>
+</ResourceDictionary>

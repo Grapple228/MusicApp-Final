@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Components.PlayingImageComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Music.Applications.Windows.Components"
+             mc:Ignorable="d" x:Name="Control"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Template>
+        <ControlTemplate TargetType="{x:Type local:PlayingImageComponent}">
+            <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" HorizontalAlignment="Left"
+                                                        Cursor="Hand"
+                                                        Background="{DynamicResource EmptyImageColor}" CornerRadius="7"
+                                                        MouseLeftButtonDown="ImageBorder_OnMouseLeftButtonDown"
+                                                        Name="ImageBorder">
+                <Grid>
+                    <Border CornerRadius="5" Name="MediaImage">
+                        <Border.Background>
+                            <ImageBrush Stretch="Fill" ImageSource="{Binding ElementName=Control, Path=ImagePath, FallbackValue=null}" />
+                        </Border.Background>
+                        
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=Control, Path=IsCurrent}" Value="True"/>
+                                            <Condition Binding="{Binding ElementName=Control, Path=IsAlwaysShown}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Opacity" Value="0.4"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Opacity" Value="0.4" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Border Padding="{Binding ElementName=Control, Path=Padding}">
+                        <Viewbox IsHitTestVisible="False" VerticalAlignment="Center" Name="PlayIcon" HorizontalAlignment="Center">
+                            <Viewbox.Style>
+                                <Style TargetType="Viewbox">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=Control, Path=IsCurrent}" Value="True"/>
+                                                <Condition Binding="{Binding ElementName=Control, Path=IsAlwaysShown}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        
+                                        <DataTrigger Binding="{Binding ElementName=MediaImage, Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Viewbox.Style>
+                            <Path Fill="{DynamicResource AccentTextColor}">
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Data" Value="{StaticResource PlayIcon}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=Control, Path=IsPlaying}" Value="True">
+                                                <Setter Property="Data" Value="{StaticResource PauseIcon}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                            </Path>
+                        </Viewbox>
+                    </Border>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

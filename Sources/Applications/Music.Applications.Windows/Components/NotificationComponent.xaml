@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Components.NotificationComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Music.Applications.Windows.Components"
+             xmlns:viewModels="clr-namespace:Music.Applications.Windows.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:NotificationViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300" Background="Aquamarine">
+    <UserControl.Template>
+        <ControlTemplate TargetType="{x:Type local:NotificationComponent}">
+           <Border Opacity="{Binding Opacity, FallbackValue=1}">
+               <Border.Style>
+                   <Style TargetType="Border" BasedOn="{StaticResource BlockWithBackgroundStyle}">
+                       <Style.Triggers>
+                           <DataTrigger Binding="{Binding IsShown, FallbackValue=False}" Value="False">
+                               <Setter Property="Visibility" Value="Collapsed"/>
+                           </DataTrigger>
+                           <DataTrigger Binding="{Binding NotificationType, FallbackValue=Success}" Value="Error">
+                               <Setter Property="Background" Value="{DynamicResource AlertColor}"/>
+                           </DataTrigger>
+                           <DataTrigger Binding="{Binding NotificationType, FallbackValue=Success}" Value="Success">
+                               <Setter Property="Background" Value="{DynamicResource AccentColor}"/>
+                           </DataTrigger>
+                           <DataTrigger Binding="{Binding NotificationType, FallbackValue=Success}" Value="Notification">
+                               <Setter Property="Background" Value="{DynamicResource YellowColor}"/>
+                           </DataTrigger>
+                       </Style.Triggers>
+                   </Style>
+               </Border.Style>
+               
+               <Grid>
+                   <Grid.RowDefinitions>
+                       <RowDefinition Height="Auto"/>
+                       <RowDefinition/>
+                   </Grid.RowDefinitions>
+                   
+                   <Grid Grid.Row="0" Margin="0,0,0,3">
+                       <Grid.ColumnDefinitions>
+                           <ColumnDefinition/>
+                           <ColumnDefinition Width="Auto"/>
+                       </Grid.ColumnDefinitions>
+                       
+                       <TextBlock Grid.Column="0" Text="{Binding Title, FallbackValue=Title}" Style="{StaticResource HeaderText}"/>
+                       
+                       <Border Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                               Width="20" Height="20" x:Name="CloseButton" MouseLeftButtonDown="CloseRequestedHandler">
+                           <Viewbox Width="13" Height="13" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Margin="1,0,0,0">
+                               <Path Data="{StaticResource CrossIcon}">
+                                   <Path.Style>
+                                       <Style TargetType="Path">
+                                           <Setter Property="Fill" Value="{DynamicResource AccentTextColor}" />
+                                           <Style.Triggers>
+                                               <MultiDataTrigger>
+                                                   <MultiDataTrigger.Conditions>
+                                                       <Condition Binding="{Binding ElementName=CloseButton, Path=IsMouseOver}" Value="True"/>
+                                                       <Condition Binding="{Binding NotificationType}" Value="Error"/>
+                                                   </MultiDataTrigger.Conditions>
+                                                   <Setter Property="Opacity" Value="0.6"/>
+                                               </MultiDataTrigger>
+                                               
+                                               <MultiDataTrigger>
+                                                   <MultiDataTrigger.Conditions>
+                                                       <Condition Binding="{Binding ElementName=CloseButton, Path=IsMouseOver}" Value="True"/>
+                                                       <Condition Binding="{Binding NotificationType}" Value="Notification"/>
+                                                   </MultiDataTrigger.Conditions>
+                                                   <Setter Property="Fill" Value="{DynamicResource AlertColor}" />
+                                               </MultiDataTrigger>
+                                               
+                                               <MultiDataTrigger>
+                                                   <MultiDataTrigger.Conditions>
+                                                       <Condition Binding="{Binding ElementName=CloseButton, Path=IsMouseOver}" Value="True"/>
+                                                       <Condition Binding="{Binding NotificationType}" Value="Success"/>
+                                                   </MultiDataTrigger.Conditions>
+                                                   <Setter Property="Fill" Value="{DynamicResource AlertColor}" />
+                                               </MultiDataTrigger>
+                                           </Style.Triggers>
+                                       </Style>
+                                   </Path.Style>
+                               </Path>
+                           </Viewbox>
+                       </Border>
+                   </Grid>
+                   
+                   <TextBlock Grid.Row="1" Text="{Binding Message, FallbackValue=Message}" Foreground="{DynamicResource AccentTextColor}"/>
+               </Grid>
+           </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

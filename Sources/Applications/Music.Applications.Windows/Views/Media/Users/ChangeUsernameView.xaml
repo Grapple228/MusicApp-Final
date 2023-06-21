@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Music.Applications.Windows.Views.ChangeUsernameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:popup="clr-namespace:Music.Applications.Windows.ViewModels.Popup"
+             xmlns:controls="clr-namespace:Music.Applications.Windows.Controls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance popup:ChangeUsernameViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <StackPanel>
+        <TextBox Tag="Title" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Name="TitleTextBox" Background="{DynamicResource BackgroundColor}" />
+        
+        <Separator Height="4" />
+        
+        <controls:CustomButton x:Name="CreateButton"
+                               LabelText="Change"
+                               Clicked="ChangeButton_OnClicked" />
+    </StackPanel>
+    
+</UserControl>

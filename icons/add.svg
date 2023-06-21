@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="uuid-e72fd36b-ad96-473c-9a55-b2fa3ddfdd23" data-name="Слой 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.16 2.16">
+  <defs>
+    <style>
+      .uuid-1b4fee6a-90de-4a73-959a-a0b254cbb683 {
+        fill: #d4d4d4;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="uuid-1328cd6b-0b19-4061-88b7-2afaf5d63ada" data-name="Слой 1">
+    <path id="uuid-3db390bb-f7c5-405f-9b24-3bb2167f339e" data-name="add" class="uuid-1b4fee6a-90de-4a73-959a-a0b254cbb683" d="M.16,.92H.92V.16C.92,.07,.99,0,1.08,0c.09,0,.16,.07,.16,.16V.92s.76,0,.76,0c.09,0,.16,.07,.16,.16s-.07,.16-.16,.16h-.76v.76c0,.09-.07,.16-.16,.16-.09,0-.16-.07-.16-.16v-.76H.16C.07,1.24,0,1.17,0,1.08c0-.09,.07-.16,.16-.16Z"/>
+  </g>
+</svg>

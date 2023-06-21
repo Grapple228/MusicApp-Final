@@ -1,0 +1,12 @@
+﻿<component name="ProjectRunConfigurationManager">
+    <configuration default="true" name="Run All Apis" type="CompoundRunConfigurationType">
+        <toRun name="Music.Identity.Service: https" type="LaunchSettings"/>
+        <toRun name="Music.Users.Service: https" type="LaunchSettings"/>
+        <toRun name="Music.Tracks.Service: https" type="LaunchSettings"/>
+        <toRun name="Music.Artists.Service: https" type="LaunchSettings"/>
+        <toRun name="Music.Albums.Service: https" type="LaunchSettings"/>
+        <toRun name="Music.Playlists.Service: https" type="LaunchSettings"/>
+        <toRun name="Music.Genres.Service: https" type="LaunchSettings"/>
+        <method v="2"/>
+    </configuration>
+</component>
