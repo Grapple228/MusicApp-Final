@@ -46,3 +46,5 @@
 Рекомендуется использовать Powerpoint версии 2019 года или выше, так как применяется переход между слайдами "Трансформация"
 [Сенчуков А.В..pptx](https://github.com/Grapple228/MusicApp-Final/files/11816249/default.pptx)
 
+## Текст речи
+[Текст речи.docx](https://github.com/Grapple228/MusicApp-Final/files/11816263/default.docx)
