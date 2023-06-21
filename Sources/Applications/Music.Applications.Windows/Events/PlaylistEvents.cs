@@ -30,8 +30,15 @@ public static class PlaylistEvents
 
     public static async Task Load()
     {
-        var playlists = (await App.GetService().GetUserPlaylists()).Select(x => new UserPlaylist(x.Id, x.Title));
-        PlaylistsLoaded?.Invoke(playlists);
+        try
+        {
+            var playlists = (await App.GetService().GetUserPlaylists()).Select(x => new UserPlaylist(x.Id, x.Title));
+            PlaylistsLoaded?.Invoke(playlists);
+        }
+        catch
+        {
+            // ignored
+        }
     }
 
     public static void Delete(Guid playlistId)

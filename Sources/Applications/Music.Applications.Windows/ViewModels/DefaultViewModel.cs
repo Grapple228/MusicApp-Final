@@ -83,8 +83,15 @@ public class DefaultViewModel : ViewModelBase
 
     public async Task Load()
     {
-        Navigation.NavigateTo<HomeViewModel>();
-        await PlaylistEvents.Load();
+        try
+        {
+            Navigation.NavigateTo<HomeViewModel>();
+            Task.Run(PlaylistEvents.Load);
+        }
+        catch 
+        {
+            // ignored
+        }
     }
 
     ~DefaultViewModel()
