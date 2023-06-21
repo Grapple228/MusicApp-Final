@@ -1,10 +1,11 @@
 # Music
 Музыкальное приложение с возможностью создать групповой сеанс прослушивания  
 ## Режим обычного прослушивания
-![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/8e66d1ae-c4a5-4b63-b382-2aee4d99cbf5)
+![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/0c537cc3-5c1d-4ad8-80f6-049ae063924b)
+
 
 ## Режим одновременного прослушивания
-![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/63b1ee28-ded4-45dc-a515-58a9f0402168)
+![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/57c207d0-01dc-43ab-89af-3a2c0179d3a7)
 
 # Средства разработки
 - C# 11, NET CORE 8
@@ -31,9 +32,9 @@
 - Images (8008)
 
 ## Структура системы
-![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/264acdf3-aea4-4044-ab80-659c39043d5b)
-
+![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/83e6b26f-abd7-42dc-9943-6e079107bad2)
 
 ## Диаграмма прецедентов
-![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/060147ef-5c8e-4d12-bdaa-380637e4a6d6)
+![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/5e81bf4b-0ab7-4b3f-bb8f-8c9a47f7c4b6)
+
 
