@@ -43,4 +43,5 @@
 [Пояснительная записка.docx](https://github.com/Grapple228/MusicApp-Final/files/11816052/default.docx)
 
 ## Презентация
+Рекомендуется использовать Powerpoint версии 2019 года или выше, так как применяется переход между слайдами "Трансформация"
 [Сенчуков А.В..pptx](https://github.com/Grapple228/MusicApp-Final/files/11816059/default.pptx)
