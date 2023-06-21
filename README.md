@@ -1,5 +1,7 @@
 # Music
 Музыкальное приложение с возможностью создать групповой сеанс прослушивания  
+Разработано для дипломного проекта  
+
 ## Режим обычного прослушивания
 ![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/0c537cc3-5c1d-4ad8-80f6-049ae063924b)
 
@@ -37,4 +39,8 @@
 ## Диаграмма прецедентов
 ![image](https://github.com/Grapple228/MusicApp-Final/assets/97295498/5e81bf4b-0ab7-4b3f-bb8f-8c9a47f7c4b6)
 
+## Пояснительная записка к диплому  
+[Пояснительная записка.docx](https://github.com/Grapple228/MusicApp-Final/files/11816052/default.docx)
 
+## Презентация
+[Сенчуков А.В..pptx](https://github.com/Grapple228/MusicApp-Final/files/11816059/default.pptx)
